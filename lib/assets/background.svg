@@ -1,0 +1,32 @@
+<svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="390" height="844" fill="url(#bgGradient)"/>
+  
+  <path d="M 80 720 Q 40 680, 50 630 Q 60 580, 100 560 Q 140 540, 130 490 Q 120 440, 160 410 Q 200 380, 210 330 Q 220 280, 260 250 Q 300 220, 290 170 Q 285 155, 310 140" 
+        stroke="#ffffff" 
+        stroke-width="3" 
+        stroke-dasharray="10,8" 
+        fill="none" 
+        opacity="0.6"/>
+  
+  <circle cx="80" cy="720" r="30" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.8"/>
+  <circle cx="80" cy="720" r="20" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+  
+  <g transform="translate(310, 140)">
+    <ellipse cx="0" cy="-50" rx="45" ry="15" fill="#8b5a3c" stroke="#6b4423" stroke-width="2"/>
+    <rect x="-45" y="-50" width="90" height="100" fill="#a0643c" stroke="#6b4423" stroke-width="2"/>
+    <ellipse cx="0" cy="50" rx="45" ry="15" fill="#6b4423" stroke="#4a2f1a" stroke-width="2"/>
+    
+    <rect x="-45" y="-35" width="90" height="4" fill="#3d2817" opacity="0.7"/>
+    <rect x="-45" y="0" width="90" height="4" fill="#3d2817" opacity="0.7"/>
+    <rect x="-45" y="35" width="90" height="4" fill="#3d2817" opacity="0.7"/>
+    
+    <ellipse cx="-15" cy="-10" rx="12" ry="20" fill="#ffffff" opacity="0.2"/>
+  </g>
+</svg>
