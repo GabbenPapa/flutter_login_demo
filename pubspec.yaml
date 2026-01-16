@@ -1,5 +1,5 @@
-name: chat_app
-description: "A new Flutter project."
+name: driver_app_demo
+description: "Driver App Demo"
 
 publish_to: 'none'
 
@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^5.4.0
+  provider: ^6.0.0
   cupertino_icons: ^1.0.8
   image_picker: ^1.1.2
 

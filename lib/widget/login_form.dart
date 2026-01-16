@@ -1,8 +1,8 @@
-import 'package:chat_app/components/inputs.dart';
 import 'package:flutter/material.dart';
+import 'package:driver_app_demo/components/inputs.dart';
 
 class LoginForm extends StatefulWidget {
-  final void Function(bool isLogin) onSubmit;
+  final void Function(String email, String password, bool isLogin) onSubmit;
   final bool isLoading;
 
   const LoginForm({
@@ -17,21 +17,19 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
-  var _isLogin = true;
-
-  String _userEmail = '';
-  String _userName = '';
-  String _userPassword = '';
+  bool _isLogin = true;
+  String _email = '';
+  String _username = '';
+  String _password = '';
 
   void _trySubmit() {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
 
-    if (!isValid) return;
-
-    _formKey.currentState!.save();
-
-    widget.onSubmit(_isLogin);
+    if (isValid) {
+      _formKey.currentState!.save();
+      widget.onSubmit(_email.trim(), _password.trim(), _isLogin);
+    }
   }
 
   @override
@@ -47,13 +45,15 @@ class _LoginFormState extends State<LoginForm> {
             children: [
               TextInput(
                 key: const ValueKey('email'),
-                autocorrection: false,
-                labelText: 'E-Mail',
                 keyboardType: TextInputType.emailAddress,
-                validator: (value) => (value == null || !value.contains('@')) 
-                    ? 'Please enter a valid email address' : null,
-                onSaved: (value) => _userEmail = value!,
+                labelText: 'E-Mail address',
+                validator: (value) {
+                  if (value == null || !value.contains('@')) return 'Invalid email';
+                  return null;
+                },
+                onSaved: (value) => _email = value ?? '',
               ),
+              const SizedBox(height: 10),
               if (!_isLogin) ...[
                 const SizedBox(height: 10),
                 TextInput(
@@ -62,19 +62,21 @@ class _LoginFormState extends State<LoginForm> {
                   labelText: 'Username',
                   validator: (value) => (value == null || value.length < 4) 
                       ? 'Please enter a valid username' : null,
-                  onSaved: (value) => _userName = value!,
+                  onSaved: (value) => _username = value!,
                 ),
               ],
               const SizedBox(height: 10),
               TextInput(
                 key: const ValueKey('password'),
-                labelText: 'Password',
                 obscureText: true,
-                validator: (value) => (value == null || value.length < 7) 
-                    ? 'Password must be at least 7 characters long' : null,
-                onSaved: (value) => _userPassword = value!,
+                labelText: 'Password',
+                validator: (value) {
+                  if (value == null || value.length < 4) return 'Too short';
+                  return null;
+                },
+                onSaved: (value) => _password = value ?? '',
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 20),
               if (widget.isLoading)
                 const CircularProgressIndicator()
               else ...[
@@ -84,9 +86,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 TextButton(
                   onPressed: () => setState(() => _isLogin = !_isLogin),
-                  child: Text(_isLogin 
-                      ? 'Create new account' 
-                      : 'I have an existing account'),
+                  child: Text(_isLogin ? 'Create account' : 'I have an account'),
                 ),
               ],
             ],

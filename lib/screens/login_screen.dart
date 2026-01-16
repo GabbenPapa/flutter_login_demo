@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../widget/login_form.dart';
+import 'vehicle_selection_screen.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const routeName = '/login';
   const LoginScreen({super.key});
 
   @override
@@ -11,10 +13,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
 
-  void _handleAuthSubmit(bool isLogin) async {
+  void _handleAuthSubmit(String email, String password, bool isLogin) async {
     setState(() => _isLoading = true);
 
-    // Fake delay for demo purposes
     await Future.delayed(const Duration(seconds: 1));
 
     if (!mounted) return;
@@ -22,13 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(isLogin ? 'Fake login successful' : 'Fake registration successful'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        content: Text(isLogin ? 'Welcome back, $email!' : 'Registration successful!'),
+        duration: const Duration(seconds: 2),
       ),
     );
 
-    // Navigate to the next screen (Skeleton)
-    // Navigator.of(context).pushReplacementNamed('/home');
+    Navigator.of(context).pushReplacementNamed(VehicleSelectionScreen.routeName);
   }
 
   @override
