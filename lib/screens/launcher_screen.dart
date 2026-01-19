@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:camera/camera.dart';
+import 'camera_logic.dart';
+
 
 class LauncherScreen extends StatefulWidget {
   static const routeName = '/launcher';
@@ -157,8 +160,23 @@ class _LauncherScreenState extends State<LauncherScreen> {
                   width: double.infinity,
                   height: 50, 
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/launcher');
+                    onPressed: () async {
+                      WidgetsFlutterBinding.ensureInitialized();
+                      final cameras = await availableCameras();
+                      
+                      if (cameras.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('No camera found')),
+                        );
+                        return;
+                      }
+
+                      if (!mounted) return;
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => TakePictureScreen(camera: cameras.first),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
@@ -169,7 +187,7 @@ class _LauncherScreenState extends State<LauncherScreen> {
                       elevation: 5, 
                     ),
                     child: const Text(
-                      'Next', 
+                      'Take a Photo', 
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
                     ),
                   ),
@@ -299,7 +317,6 @@ class _LauncherScreenState extends State<LauncherScreen> {
           Expanded(flex: 1, child: Text(vol, style: const TextStyle(fontSize: 10, color: Colors.white))),
           const Icon(Icons.edit, size: 16, color: Colors.white),
           const Icon(Icons.close, size: 16, color: Colors.white),
-          const Icon(Icons.camera_alt, size: 16, color: Colors.white),
         ],
       ),
     );
