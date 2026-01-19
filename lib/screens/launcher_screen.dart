@@ -62,7 +62,7 @@ class _LauncherScreenState extends State<LauncherScreen> {
 
                       Row(
                         children: [
-                          const Icon(Icons.refresh, color: Colors.blue, size: 30),
+                          const Icon(Icons.refresh , color: Colors.white),
                           const SizedBox(width: 10),
                           Expanded(child: _buildActionBtn('Less')),
                           const SizedBox(width: 8),
@@ -116,15 +116,14 @@ class _LauncherScreenState extends State<LauncherScreen> {
 
                       const SizedBox(height: 20),
 
-                      // Funkció gombok
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildBottomBtn('Start', const Color(0xFF007BFF)),
-                          _buildBottomBtn('GPS', const Color(0xFF4DA3FF)),
-                          _buildBottomBtn('Info', const Color(0xFF007BFF)),
-                          _buildBottomBtn('Save', const Color(0xFF4DA3FF)),
-                          _buildBottomBtn('Cancel', const Color(0xFF4DA3FF)),
+                          _buildBottomBtn('Start'),
+                          _buildBottomBtn('GPS' ),
+                          _buildBottomBtn('Info'),
+                          _buildBottomBtn('Save'),
+                          _buildBottomBtn('Cancel'),
                         ],
                       ),
 
@@ -267,7 +266,7 @@ class _LauncherScreenState extends State<LauncherScreen> {
     );
   }
 
-  Widget _buildBottomBtn(String label, Color color) {
+  Widget _buildBottomBtn(String label) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 2.0),
