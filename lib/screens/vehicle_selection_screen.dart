@@ -38,6 +38,15 @@ class _VehicleSelectionScreenState extends State<VehicleSelectionScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Select Vehicle'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.of(context).pushNamed('/settings');
+            },
+          ),
+        ],
+
       ),
       drawer: Drawer(
         backgroundColor: Colors.deepPurple,
@@ -153,7 +162,6 @@ class _VehicleSelectionScreenState extends State<VehicleSelectionScreen> {
     );
   }
 
-  // Segéd metódus a Drawer elemekhez
   Widget _buildDrawerItem(String title, VoidCallback onTap) {
     return ListTile(
       title: Text(
@@ -161,7 +169,6 @@ class _VehicleSelectionScreenState extends State<VehicleSelectionScreen> {
         style: const TextStyle(color: Colors.white, fontSize: 16),
       ),
       onTap: () {
-        // Itt zárod be a menüt kattintáskor
         Navigator.pop(context);
         onTap();
       },

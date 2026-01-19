@@ -1,3 +1,4 @@
+import 'package:driver_app_demo/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // import 'package:flutter_localizations/flutter_localizations.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
           LoginScreen.routeName: (ctx) => const LoginScreen(),
           VehicleSelectionScreen.routeName: (ctx) => const VehicleSelectionScreen(),
           LauncherScreen.routeName: (ctx) => const LauncherScreen(),
+          SettingsScreen.routeName: (ctx) => const SettingsScreen(),
         },
       // ),
     );
