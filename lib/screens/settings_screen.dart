@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:math' as math; // Ez kell a forgatáshoz
 
 class SettingsScreen extends StatefulWidget {
   static const routeName = '/settings';
@@ -10,13 +11,32 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+// Hozzáadtuk a mixint az animációhoz
+class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _rotationController;
+  
   String _selectedLanguage = 'English';
   final Map<String, String> _languageMap = {
     'English': 'en',
     'Hungarian': 'hu',
     'German': 'de',
   };
+
+  @override
+  void initState() {
+    super.initState();
+    // 15 másodperc alatt tesz meg egy kört, végtelenítve
+    _rotationController = AnimationController(
+      duration: const Duration(seconds: 15),
+      vsync: this,
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _rotationController.dispose();
+    super.dispose();
+  }
 
   void _handleFactoryReset() {
     print('Factory Reset performed');
@@ -42,7 +62,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               fit: BoxFit.cover,
             ),
           ),
-          // Tartalom kettéosztása: Görgethető rész + Rögzített gomb
+          // Tartalom
           Column(
             children: [
               Expanded(
@@ -53,7 +73,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     children: [
                       const SizedBox(height: 30),
                       
-                      // Nyelvválasztás a korábbi stílussal
                       _buildLabel('Select Language:'),
                       _buildDropdown(
                         hint: 'Select Language',
@@ -66,7 +85,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                       const SizedBox(height: 30),
 
-                      // Téma beállítások
                       _buildLabel('Appearance:'),
                       Card(
                         color: Colors.white.withOpacity(0.1),
@@ -93,12 +111,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ],
                         ),
                       ),
+
+                      // --- ITT A FORGÓ FOGASKERÉK A PANEL ALATT ---
+                      const SizedBox(height: 50),
+                      Center(
+                        child: AnimatedBuilder(
+                          animation: _rotationController,
+                          builder: (context, child) {
+                            return Transform.rotate(
+                              angle: _rotationController.value * 2.0 * math.pi,
+                              child: child,
+                            );
+                          },
+                          child: Icon(
+                            Icons.settings,
+                            size: 200,
+                            color: Colors.white.withOpacity(0.1),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
               ),
 
-              // Rögzített Factory Reset Gomb az alján
+              // Rögzített Factory Reset Gomb
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: SizedBox(
@@ -128,8 +166,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  // --- Segédfüggvények (Helpers) a konzisztens kinézethez ---
-
+  // --- Segédfüggvények maradnak változatlanul ---
   Widget _buildLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
@@ -183,10 +220,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: const Text('Are you sure?'),
         content: const Text('This will reset all settings to factory defaults.'),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('CANCEL'),
-          ),
+          TextButton(onPressed: () => Navigator.of(ctx).pop(), child: const Text('CANCEL')),
           TextButton(
             onPressed: () {
               Navigator.of(ctx).pop();
