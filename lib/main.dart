@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'screens/login_screen.dart';
 import 'screens/vehicle_selection_screen.dart';
+import 'screens/launcher_screen.dart';
 // import 'providers/intro_provider.dart';
 // import 'providers/language_provider.dart'; 
 // import 'providers/theme_provider.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
         routes: {
           LoginScreen.routeName: (ctx) => const LoginScreen(),
           VehicleSelectionScreen.routeName: (ctx) => const VehicleSelectionScreen(),
+          LauncherScreen.routeName: (ctx) => const LauncherScreen(),
         },
       // ),
     );

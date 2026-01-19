@@ -47,80 +47,80 @@ class _VehicleSelectionScreenState extends State<VehicleSelectionScreen> {
               fit: BoxFit.cover,
             ),
           ),
-      Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 30),
-                  _buildLabel('Vehicle:'),
-                  _buildDropdown(
-                    hint: 'Select Vehicle',
-                    value: _selectedVehicle,
-                    items: _vehicles,
-                    onChanged: (val) => setState(() => _selectedVehicle = val),
+          Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 30),
+                      _buildLabel('Vehicle:'),
+                      _buildDropdown(
+                        hint: 'Select Vehicle',
+                        value: _selectedVehicle,
+                        items: _vehicles,
+                        onChanged: (val) => setState(() => _selectedVehicle = val),
+                      ),
+                      const SizedBox(height: 20),
+                      _buildLabel('Plate number:'),
+                      _buildDropdown(
+                        hint: 'Select Plate',
+                        value: _selectedPlate,
+                        items: _plates,
+                        onChanged: (val) => setState(() => _selectedPlate = val),
+                      ),
+                      const SizedBox(height: 20),
+                      _buildLabel('Driver:'),
+                      _buildDropdown(
+                        hint: 'Select Driver',
+                        value: _selectedDriver,
+                        items: _drivers,
+                        onChanged: (val) => setState(() => _selectedDriver = val),
+                      ),
+                      const SizedBox(height: 8),
+                      const Text(
+                        'A driver can be selected and used when registering the pickup.',
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                  _buildLabel('Plate number:'),
-                  _buildDropdown(
-                    hint: 'Select Plate',
-                    value: _selectedPlate,
-                    items: _plates,
-                    onChanged: (val) => setState(() => _selectedPlate = val),
-                  ),
-                  const SizedBox(height: 20),
-                  _buildLabel('Driver:'),
-                  _buildDropdown(
-                    hint: 'Select Driver',
-                    value: _selectedDriver,
-                    items: _drivers,
-                    onChanged: (val) => setState(() => _selectedDriver = val),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'A driver can be selected and used when registering the pickup.',
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      fontSize: 14,
-                      color: Colors.white,
+                ),
+              ),
+              
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: SizedBox(  
+                  width: double.infinity,
+                  height: 50, 
+                  child: ElevatedButton(
+                    onPressed: () {
+                      print('Saved: $_selectedVehicle, $_selectedPlate, $_selectedDriver');
+                      Navigator.of(context).pushNamed('/launcher');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.pink,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      elevation: 5, 
+                    ),
+                    child: const Text(
+                      'Next', 
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
                     ),
                   ),
-                  const SizedBox(height: 20),
-                ],
-              ),
-            ),
-          ),
-          
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SizedBox(
-              width: double.infinity,
-              height: 50, 
-              child: ElevatedButton(
-                onPressed: () {
-                  print('Saved: $_selectedVehicle, $_selectedPlate, $_selectedDriver');
-                  // Navigator.of(context).pushReplacementNamed('/launcher');
-                },
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.pink,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  elevation: 5, 
-                ),
-                child: const Text(
-                  'Save', 
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
                 ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
         ],
       ),
     );
