@@ -37,7 +37,34 @@ class _VehicleSelectionScreenState extends State<VehicleSelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Select a Vehicle'),
+        title: const Text('Select Vehicle'),
+      ),
+      drawer: Drawer(
+        backgroundColor: Colors.deepPurple,
+
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const SizedBox(height: 50), 
+            const ListTile(
+              title: Text(
+                'Dashboard',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
+              ),
+            ),
+            _buildDrawerItem('Pickups', () {}),
+            _buildDrawerItem('Unload', () {}),
+            const Divider(color: Colors.grey, indent: 15, endIndent: 15),
+            _buildDrawerItem('Print manifests', () {}),
+            _buildDrawerItem('Master data', () {}),
+            const Divider(color: Colors.grey, indent: 15, endIndent: 15),
+            _buildDrawerItem('Sign out', () {}),
+            _buildDrawerItem('Dark mode', () {}),
+          ],
+        ),
       ),
       body: Stack(
         children: [
@@ -61,7 +88,8 @@ class _VehicleSelectionScreenState extends State<VehicleSelectionScreen> {
                         hint: 'Select Vehicle',
                         value: _selectedVehicle,
                         items: _vehicles,
-                        onChanged: (val) => setState(() => _selectedVehicle = val),
+                        onChanged: (val) =>
+                            setState(() => _selectedVehicle = val),
                       ),
                       const SizedBox(height: 20),
                       _buildLabel('Plate number:'),
@@ -77,7 +105,8 @@ class _VehicleSelectionScreenState extends State<VehicleSelectionScreen> {
                         hint: 'Select Driver',
                         value: _selectedDriver,
                         items: _drivers,
-                        onChanged: (val) => setState(() => _selectedDriver = val),
+                        onChanged: (val) =>
+                            setState(() => _selectedDriver = val),
                       ),
                       const SizedBox(height: 8),
                       const Text(
@@ -93,15 +122,13 @@ class _VehicleSelectionScreenState extends State<VehicleSelectionScreen> {
                   ),
                 ),
               ),
-              
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: SizedBox(  
+                child: SizedBox(
                   width: double.infinity,
-                  height: 50, 
+                  height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      print('Saved: $_selectedVehicle, $_selectedPlate, $_selectedDriver');
                       Navigator.of(context).pushNamed('/launcher');
                     },
                     style: ElevatedButton.styleFrom(
@@ -110,11 +137,11 @@ class _VehicleSelectionScreenState extends State<VehicleSelectionScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      elevation: 5, 
+                      elevation: 5,
                     ),
                     child: const Text(
-                      'Next', 
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                      'Next',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -126,12 +153,28 @@ class _VehicleSelectionScreenState extends State<VehicleSelectionScreen> {
     );
   }
 
+  // Segéd metódus a Drawer elemekhez
+  Widget _buildDrawerItem(String title, VoidCallback onTap) {
+    return ListTile(
+      title: Text(
+        title,
+        style: const TextStyle(color: Colors.white, fontSize: 16),
+      ),
+      onTap: () {
+        // Itt zárod be a menüt kattintáskor
+        Navigator.pop(context);
+        onTap();
+      },
+    );
+  }
+
   Widget _buildLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Text(
         text,
-        style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+        style: const TextStyle(
+            fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -145,23 +188,23 @@ class _VehicleSelectionScreenState extends State<VehicleSelectionScreen> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.white, width: 1.5), 
+        border: Border.all(color: Colors.white, width: 1.5),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           value: value,
-          dropdownColor: Theme.of(context).primaryColor, 
-          hint: Text(hint, style: const TextStyle(color: Colors.white70)), 
+          dropdownColor: Theme.of(context).primaryColor,
+          hint: Text(hint, style: const TextStyle(color: Colors.white70)),
           isExpanded: true,
-          icon: const Icon(Icons.keyboard_arrow_down, color: Colors.white), 
-          style: const TextStyle(color: Colors.white, fontSize: 15), 
+          icon: const Icon(Icons.keyboard_arrow_down, color: Colors.white),
+          style: const TextStyle(color: Colors.white, fontSize: 15),
           items: items.map((String item) {
             return DropdownMenuItem<String>(
               value: item,
               child: Text(
                 item,
-                style: const TextStyle(color: Colors.white), 
+                style: const TextStyle(color: Colors.white),
                 overflow: TextOverflow.ellipsis,
               ),
             );
